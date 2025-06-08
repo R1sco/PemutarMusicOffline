@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Pemutar Music Offline</string>
+    <string name="judul_lagu">Judul Lagu</string>
+    <string name="nama_artis">Nama Artis</string>
+    <string name="ikon_musik">Ikon Musik</string>
+    <string name="tambahkan_ke_favorit">Tambahkan ke favorit</string>
+</resources>
