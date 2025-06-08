@@ -18,6 +18,33 @@ Aplikasi pemutar musik offline untuk Android yang dibangun dengan Kotlin dan Jet
 - Fungsi Background
 - Notif
 
+## Komponen Android yang Digunakan
+
+### 1. Service
+- `MusicService`: Menangani pemutaran musik di latar belakang
+
+### 2. Broadcast Receiver
+- `HeadsetReceiver`: Mendeteksi perubahan headset
+
+### 3. Notification
+- `MediaNotificationManager`: Menampilkan notifikasi media
+
+### 4. Room Database
+- Menyimpan daftar lagu favorit
+- Menggunakan DAO untuk operasi database
+
+### 5. Permission
+- Izin akses penyimpanan dan pemutaran latar belakang
+
+### 6. MediaSession
+- Mengintegrasikan dengan sistem media Android
+- Mendukung kontrol eksternal
+
+### 7. Komponen UI
+- Jetpack Compose untuk antarmuka modern
+- Fragment untuk modularitas
+- ViewModel untuk manajemen data UI
+
 ## Teknologi yang Digunakan
 
 - **Kotlin** - Bahasa pemrograman utama
