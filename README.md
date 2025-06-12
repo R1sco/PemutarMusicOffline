@@ -1,49 +1,70 @@
 # Pemutar Musik Offline
 
-Aplikasi pemutar musik offline untuk Android yang dibangun dengan Kotlin dan Jetpack Compose. Aplikasi ini memungkinkan pengguna untuk memutar lagu yang tersimpan di perangkat mereka dengan antarmuka yang modern dan mudah digunakan.
+An offline music player application for Android built with Kotlin and Jetpack Compose. This application allows users to play music stored on their devices with a modern and user-friendly interface.
 
-## Fitur
+## Features
 
-- Memutar musik offline dari penyimpanan perangkat
-- Dukungan untuk kontrol pemutaran (play, pause, stop)
-- Dukungan untuk headset controls
-- Notifikasi media dengan kontrol pemutaran
-- Daftar putar lagu
-- Favorit lagu
-- Pencarian lagu
-- Tema gelap/terang (jika diimplementasikan)
+- Play offline music from device storage
+- Playback controls support (play, pause, stop)
+- Headset controls support
+- Media notification with playback controls
+- Playlist
+- Favorite songs
+- Song search
 
 # TODO
 
-- Fungsi Background
-- Notif
+- Background playback function
+- Notification
 
-## Komponen Android yang Digunakan
+## Android Components Used
 
 ### 1. Service
-- `MusicService`: Menangani pemutaran musik di latar belakang
+- `MusicService`: Handles background music playback
 
 ### 2. Broadcast Receiver
-- `HeadsetReceiver`: Mendeteksi perubahan headset
+- `HeadsetReceiver`: Detects headset changes
 
 ### 3. Notification
-- `MediaNotificationManager`: Menampilkan notifikasi media
+- `MediaNotificationManager`: Displays media notifications
 
 ### 4. Room Database
-- Menyimpan daftar lagu favorit
-- Menggunakan DAO untuk operasi database
+- Stores favorite songs list
+- Uses DAO for database operations
 
-### 5. Permission
-- Izin akses penyimpanan dan pemutaran latar belakang
+### 5. Permissions
+- Storage access and background playback permissions
 
 ### 6. MediaSession
-- Mengintegrasikan dengan sistem media Android
-- Mendukung kontrol eksternal
+- Integrates with Android media system
+- Supports external controls
 
-### 7. Komponen UI
-- Jetpack Compose untuk antarmuka modern
-- Fragment untuk modularitas
-- ViewModel untuk manajemen data UI
+### 7. UI Components
+- Jetpack Compose for modern interface
+- Fragments for modularity
+- ViewModel for UI data management
+
+## Technologies Used
+
+- **Kotlin** - Primary programming language
+- **Jetpack Compose** - For modern UI
+- **AndroidX** - Latest Android components
+- **Room** - For local data storage (favorites list)
+- **Media3** - For audio playback
+- **Coroutines & Flow** - For asynchronous operations
+- **Dependency Injection** - Hilt (if implemented)
+
+## System Requirements
+
+- Android 6.0 (API level 24) or higher
+- External storage read permission
+
+## Installation
+
+1. Clone this repository
+2. Open the project in Android Studio
+3. Wait for Gradle sync to complete
+4. Press the "Run" button to run on a device or emulator
 
 ## Teknologi yang Digunakan
 
@@ -55,51 +76,34 @@ Aplikasi pemutar musik offline untuk Android yang dibangun dengan Kotlin dan Jet
 - **Coroutines & Flow** - Untuk operasi asinkron
 - **Dependency Injection** - Hilt (jika diimplementasikan)
 
-## Persyaratan Sistem
+## System Requirements
 
-- Android 6.0 (API level 24) atau lebih tinggi
-- Izin baca penyimpanan eksternal
+- Android 6.0 (API level 24) or higher
+- External storage read permission
 
-## Instalasi
 
-1. Clone repositori ini
-2. Buka proyek di Android Studio
-3. Tunggu proses sinkronisasi Gradle selesai
-4. Tekan tombol "Run" untuk menjalankan di perangkat atau emulator
-
-## Struktur Proyek
+## Structure
 
 ```
 app/
 ├── src/
 │   ├── main/
 │   │   ├── java/com/example/pemutarmusicoffline/
-│   │   │   ├── MainActivity.kt         # Aktivitas utama
-│   │   │   ├── MusicService.kt         # Layanan untuk pemutaran musik
-│   │   │   ├── Song.kt                 # Model data lagu
-│   │   │   ├── SongUtils.kt            # Utilitas untuk mengambil lagu
-│   │   │   ├── database/               # Komponen database Room
-│   │   │   ├── fragment/               # Fragment untuk UI
-│   │   │   ├── notification/           # Manajer notifikasi
+│   │   │   ├── MainActivity.kt         # Main activity
+│   │   │   ├── MusicService.kt         # Service for music playback
+│   │   │   ├── Song.kt                 # Song data model
+│   │   │   ├── SongUtils.kt            # Utilities retriving songs
+│   │   │   ├── database/               # Component database Room
+│   │   │   ├── fragment/               # Fragment For UI
+│   │   │   ├── notification/           # Manager Notification
 │   │   │   ├── receiver/               # BroadcastReceiver
 │   │   │   └── ui/theme/               # Tema dan gaya
-│   │   └── res/                        # Resource aplikasi
+│   │   └── res/                        # Resource Apps
 │   └── test/                           # Unit test
-└── build.gradle.kts                    # Konfigurasi build
+└── build.gradle.kts                    # Configuration build
 ```
 
-## Cara Penggunaan
-
-1. Berikan izin akses penyimpanan saat diminta
-2. Pilih lagu dari daftar
-3. Gunakan kontrol pemutaran di layar atau dari notifikasi
-4. Tambahkan lagu ke favorit dengan menekan ikon hati
-5. Cari lagu menggunakan fitur pencarian
-
-## Kontribusi
-
-Kontribusi terbuka untuk pengembangan lebih lanjut. Silakan buat issue atau pull request.
 
 ## Lisensi
 
-Proyek ini dilisensikan di bawah [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE).
