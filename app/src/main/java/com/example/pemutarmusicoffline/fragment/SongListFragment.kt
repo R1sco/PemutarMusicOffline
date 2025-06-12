@@ -15,6 +15,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -37,6 +38,7 @@ class SongListFragment : Fragment() {
         fun onPlaySong(song: Song)
         fun onPauseSong()
         fun onStopSong()
+        fun onSeek(positionMs: Int)
     }
     
     interface FavoriteToggleListener {
@@ -157,7 +159,8 @@ class SongListFragment : Fragment() {
                 onStopClick = {
                     musicControlListener?.onStopSong()
                     isPlaying = false
-                }
+                },
+                onSeekClick = { ms -> musicControlListener?.onSeek(ms) }
             )
         }
     }
@@ -233,8 +236,10 @@ class SongListFragment : Fragment() {
         isPlaying: Boolean,
         onPlayClick: () -> Unit,
         onPauseClick: () -> Unit,
-        onStopClick: () -> Unit
+        onStopClick: () -> Unit,
+        onSeekClick: (Int) -> Unit
     ) {
+        val context = LocalContext.current
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -270,6 +275,27 @@ class SongListFragment : Fragment() {
                 }
                 
                 Spacer(modifier = Modifier.height(16.dp))
+                
+                // Slider progress
+                currentSong?.let { song ->
+                    var durationMs by remember { mutableStateOf(0) }
+                    LaunchedEffect(song) {
+                        val retriever = android.media.MediaMetadataRetriever()
+                        retriever.setDataSource(context, android.net.Uri.parse(song.filePath))
+                        durationMs = retriever.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_DURATION)?.toInt() ?: 0
+                        retriever.release()
+                    }
+                    var position by remember { mutableStateOf(0f) }
+                    Slider(
+                        value = position,
+                        onValueChange = { position = it },
+                        valueRange = 0f..durationMs.toFloat(),
+                        onValueChangeFinished = { onSeekClick(position.toInt()) },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+                
+                Spacer(modifier = Modifier.height(8.dp))
                 
                 // Controls
                 Row(

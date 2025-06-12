@@ -74,8 +74,12 @@ class MusicService : Service() {
             }
             ACTION_PAUSE -> pauseMusic()
             ACTION_STOP -> stopMusic()
+            ACTION_SEEK -> {
+                val pos = intent.getIntExtra(EXTRA_POSITION_MS, 0)
+                seekTo(pos)
+            }
         }
-        return START_NOT_STICKY
+        return START_STICKY
     }
 
     override fun onDestroy() {
@@ -136,6 +140,14 @@ class MusicService : Service() {
         return isPlaying
     }
     
+    /**
+     * Pindah ke posisi tertentu (ms)
+     */
+    fun seekTo(positionMs: Int) {
+        mediaPlayer?.seekTo(positionMs)
+        updateNotification()
+    }
+    
     private fun startForegroundWithNotification() {
         val notification = notificationManager.buildNotification(currentSong, isPlaying, mediaSession)
         startForeground(NOTIFICATION_ID, notification)
@@ -162,10 +174,12 @@ class MusicService : Service() {
         const val ACTION_PLAY = "com.example.pemutarmusicoffline.ACTION_PLAY"
         const val ACTION_PAUSE = "com.example.pemutarmusicoffline.ACTION_PAUSE"
         const val ACTION_STOP = "com.example.pemutarmusicoffline.ACTION_STOP"
+        const val ACTION_SEEK = "com.example.pemutarmusicoffline.ACTION_SEEK"
         const val EXTRA_SONG_URI = "com.example.pemutarmusicoffline.EXTRA_SONG_URI"
         const val EXTRA_SONG_TITLE = "com.example.pemutarmusicoffline.EXTRA_SONG_TITLE"
         const val EXTRA_SONG_ARTIST = "com.example.pemutarmusicoffline.EXTRA_SONG_ARTIST"
         const val EXTRA_SONG_ID = "com.example.pemutarmusicoffline.EXTRA_SONG_ID"
+        const val EXTRA_POSITION_MS = "com.example.pemutarmusicoffline.EXTRA_POSITION_MS"
         private const val NOTIFICATION_ID = 1
     }
 }

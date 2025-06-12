@@ -187,21 +187,45 @@ class MainActivity : FragmentActivity(), FavoriteFragment.MusicControlListener,
             putExtra(MusicService.EXTRA_SONG_ARTIST, song.artist)
             putExtra(MusicService.EXTRA_SONG_ID, song.id)
         }
-        startService(intent)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent)
+        } else {
+            startService(intent)
+        }
     }
     
     override fun onPauseSong() {
         val intent = Intent(this, MusicService::class.java).apply {
             action = MusicService.ACTION_PAUSE
         }
-        startService(intent)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent)
+        } else {
+            startService(intent)
+        }
     }
     
     override fun onStopSong() {
         val intent = Intent(this, MusicService::class.java).apply {
             action = MusicService.ACTION_STOP
         }
-        startService(intent)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent)
+        } else {
+            startService(intent)
+        }
+    }
+    
+    override fun onSeek(positionMs: Int) {
+        val intent = Intent(this, MusicService::class.java).apply {
+            action = MusicService.ACTION_SEEK
+            putExtra(MusicService.EXTRA_POSITION_MS, positionMs)
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent)
+        } else {
+            startService(intent)
+        }
     }
     
     // Implementasi FavoriteToggleListener
